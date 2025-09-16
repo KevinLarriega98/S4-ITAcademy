@@ -8,18 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { getJoke } from "./apiService.js";
+import { displayJoke, setupScoreButtons } from "./uiService.js";
 function loadJoke() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const jokeData = yield getJoke();
-            document.getElementById("joke").textContent = jokeData.joke;
+            displayJoke(jokeData.joke);
         }
         catch (error) {
             console.error(error);
-            document.getElementById("joke").textContent = "Error loading joke";
+            displayJoke("Error loading joke 😢");
         }
     });
 }
-document.getElementById("nextJoke")
-    .addEventListener("click", loadJoke);
+setupScoreButtons();
+document.getElementById("nextJoke").addEventListener("click", loadJoke);
 loadJoke();
