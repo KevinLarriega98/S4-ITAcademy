@@ -7,6 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { fetchApi } from "./apiService.js";
+import { WEATHER_API } from "../config/config.js";
 function mapWeatherCodeToIcon(code) {
     if (code === 0)
         return "☀️";
@@ -28,11 +30,8 @@ export function getWeather() {
     return __awaiter(this, void 0, void 0, function* () {
         const latitude = 41.3851;
         const longitude = 2.1734;
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
-        const response = yield fetch(url);
-        if (!response.ok)
-            throw new Error("Error fetching weather");
-        const data = yield response.json();
+        const url = `${WEATHER_API}?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+        const data = yield fetchApi(url);
         const { temperature, weathercode } = data.current_weather;
         const degrees = data.current_weather_units.temperature;
         return {

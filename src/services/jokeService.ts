@@ -1,5 +1,6 @@
 import { displayJoke } from "../ui/uiService.js";
 import { DAD_JOKE_API, CHUCK_NORRIS_API } from "../config/config.js";
+import { fetchApi } from "./apiService.js";
 
 export interface Joke {
     id: string;
@@ -17,16 +18,11 @@ export interface ReportJoke {
 const reportJokes: ReportJoke[] = [];
 
 async function fetchDadJoke(): Promise<Joke> {
-    const response = await fetch(DAD_JOKE_API, {
+    const data = await fetchApi<{ id: string; joke: string }>(DAD_JOKE_API, {
         headers: {
             Accept: "application/json",
         },
     });
-
-    if (!response.ok) throw new Error("Error fetching dad joke");
-
-    const data = await response.json();
-
     return {
         id: data.id,
         joke: data.joke,
@@ -35,12 +31,7 @@ async function fetchDadJoke(): Promise<Joke> {
 }
 
 async function fetchChuckJoke(): Promise<Joke> {
-    const response = await fetch(CHUCK_NORRIS_API);
-
-    if (!response.ok) throw new Error("Error fetching chuck norris joke");
-
-    const data = await response.json();
-
+    const data = await fetchApi<{ id: string; value: string }>(CHUCK_NORRIS_API);
     return {
         id: data.id,
         joke: data.value,

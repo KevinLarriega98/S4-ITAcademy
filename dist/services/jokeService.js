@@ -9,17 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { displayJoke } from "../ui/uiService.js";
 import { DAD_JOKE_API, CHUCK_NORRIS_API } from "../config/config.js";
+import { fetchApi } from "./apiService.js";
 const reportJokes = [];
 function fetchDadJoke() {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch(DAD_JOKE_API, {
+        const data = yield fetchApi(DAD_JOKE_API, {
             headers: {
                 Accept: "application/json",
             },
         });
-        if (!response.ok)
-            throw new Error("Error fetching dad joke");
-        const data = yield response.json();
         return {
             id: data.id,
             joke: data.joke,
@@ -29,10 +27,7 @@ function fetchDadJoke() {
 }
 function fetchChuckJoke() {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch(CHUCK_NORRIS_API);
-        if (!response.ok)
-            throw new Error("Error fetching chuck norris joke");
-        const data = yield response.json();
+        const data = yield fetchApi(CHUCK_NORRIS_API);
         return {
             id: data.id,
             joke: data.value,

@@ -1,3 +1,6 @@
+import { fetchApi } from "./apiService.js";
+import { WEATHER_API } from "../config/config.js";
+
 export interface Weather {
     temperature: number;
     unit: string,
@@ -19,13 +22,9 @@ export async function getWeather(): Promise<Weather> {
     const latitude = 41.3851;
     const longitude = 2.1734;
 
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+    const url = `${WEATHER_API}?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+    const data = await fetchApi<any>(url);
 
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("Error fetching weather");
-
-    const data = await response.json();
-    
     const { temperature, weathercode } = data.current_weather;
     const degrees = data.current_weather_units.temperature;
 

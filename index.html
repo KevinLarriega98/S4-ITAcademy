@@ -13,9 +13,9 @@
         <p id="weather" class="fw-semibold">Loading weather...</p>
     </header>
 
-    <main class="d-flex justify-content-center align-items-start gap-5 mt-5 p-5">
-        <section class="shadow-lg d-flex flex-column gap-4 p-5 w-50 text-center rounded-4">
-            <h2 class="mb-3">Ready to laugh? 🤣</h2>
+    <main class="d-flex flex-column flex-md-row justify-content-center align-items-start gap-5 mt-5 p-4">
+        <section class="shadow-lg d-flex flex-column gap-4 w-100 w-md-50 text-center rounded-4 mb-4 mb-md-0 p-5">
+            <h4 class="mb-3">Ready to laugh? 🤣</h4>
             <p id="joke" class="d-flex justify-content-center align-items-center p-3 mb-0" style="height: 100px;">
                 Loading jokes...
             </p>
@@ -29,9 +29,28 @@
 
             <button id="nextJoke" class="btn btn-primary mx-auto">Next joke</button>
         </section>
-        <section class="shadow-lg p-5 w-50 rounded-4 bg-white d-flex flex-column" style="height: 100%; min-height: 481.07px;">
+        <section class="shadow-lg w-100 w-md-50 rounded-4 bg-white d-flex flex-column p-5">
             <h4 class="mb-4 text-center">Report History</h4>
-            <ul id="reportHistory" class="list-group flex-grow-1 overflow-auto" style="max-height: 330px;"></ul>
+            <ul id="reportHistory" class="list-group overflow-auto"></ul>
+            <style>
+                @media (min-width: 768px) {
+                    #reportHistory {
+                        max-height: 313px;
+                    }
+                }
+
+                @media (min-width: 992px) {
+                    #reportHistory {
+                        max-height: 318px;
+                    }
+                }
+
+                @media (min-width: 1200px) {
+                    #reportHistory {
+                        max-height: 323px;
+                    }
+                }
+            </style>
         </section>
     </main>
 
