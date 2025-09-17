@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { displayJoke } from "../ui/uiService.js";
 const reportJokes = [];
-export function fetchJoke() {
+function fetchDadJoke() {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch("https://icanhazdadjoke.com/", {
             headers: {
@@ -17,15 +17,43 @@ export function fetchJoke() {
             },
         });
         if (!response.ok)
-            throw new Error("Error fetching joke");
-        return response.json();
+            throw new Error("Error fetching dad joke");
+        const data = yield response.json();
+        return {
+            id: data.id,
+            joke: data.joke,
+            source: "dad"
+        };
+    });
+}
+function fetchChuckJoke() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch("https://api.chucknorris.io/jokes/random");
+        if (!response.ok)
+            throw new Error("Error fetching chuck norris joke");
+        const data = yield response.json();
+        return {
+            id: data.id,
+            joke: data.value,
+            source: "chuck"
+        };
+    });
+}
+export function fetchJoke() {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (Math.random() < 0.5) {
+            return fetchDadJoke();
+        }
+        else {
+            return fetchChuckJoke();
+        }
     });
 }
 export function loadJoke() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const jokeData = yield fetchJoke();
-            displayJoke(jokeData.joke);
+            displayJoke(jokeData.joke, jokeData.source);
         }
         catch (error) {
             console.error(error);
@@ -33,14 +61,15 @@ export function loadJoke() {
         }
     });
 }
-export function addReport(joke, score) {
+export function addReport(joke, score, source = "dad") {
     const existingIndex = reportJokes.findIndex(r => r.joke === joke);
     if (existingIndex !== -1) {
         reportJokes[existingIndex].score = score;
         reportJokes[existingIndex].date = new Date().toISOString();
+        reportJokes[existingIndex].source = source;
     }
     else {
-        reportJokes.push({ joke, score, date: new Date().toISOString() });
+        reportJokes.push({ joke, score, date: new Date().toISOString(), source });
     }
     console.log(reportJokes);
 }

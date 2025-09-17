@@ -13,19 +13,26 @@
         <p id="weather" class="fw-semibold">Loading weather...</p>
     </header>
 
-    <main class="shadow-lg d-flex flex-column gap-4 mx-auto p-5 w-50 text-center mt-5 rounded-4">
-        <h2 class="mb-3">Ready to laugh? 🤣</h2>
-        <p id="joke" class="d-flex justify-content-center align-items-center p-3 mb-0" style="height: 100px;">
-            Loading jokes...
-        </p>
+    <main class="d-flex justify-content-center align-items-start gap-5 mt-5 p-5">
+        <section class="shadow-lg d-flex flex-column gap-4 p-5 w-50 text-center rounded-4">
+            <h2 class="mb-3">Ready to laugh? 🤣</h2>
+            <p id="joke" class="d-flex justify-content-center align-items-center p-3 mb-0" style="height: 100px;">
+                Loading jokes...
+            </p>
+            <span id="jokeSource" class="text-secondary"></span>
 
-        <div class="d-flex justify-content-center gap-3">
-            <button id="score1" class="btn fs-1">😓</button>
-            <button id="score2" class="btn fs-1">😑</button>
-            <button id="score3" class="btn fs-1">😆</button>
-        </div>
+            <div class="d-flex justify-content-center gap-3">
+                <button id="score1" class="btn fs-1">😓</button>
+                <button id="score2" class="btn fs-1">😑</button>
+                <button id="score3" class="btn fs-1">😆</button>
+            </div>
 
-        <button id="nextJoke" class="btn btn-primary mx-auto">Next joke</button>
+            <button id="nextJoke" class="btn btn-primary mx-auto">Next joke</button>
+        </section>
+        <section class="shadow-lg p-5 w-50 rounded-4 bg-white d-flex flex-column" style="height: 100%; min-height: 481.07px;">
+            <h4 class="mb-4 text-center">Report History</h4>
+            <ul id="reportHistory" class="list-group flex-grow-1 overflow-auto" style="max-height: 330px;"></ul>
+        </section>
     </main>
 
     <script type="module" src="./dist/main.js"></script>
