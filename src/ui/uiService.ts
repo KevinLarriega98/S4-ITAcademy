@@ -1,19 +1,24 @@
 import { addReport } from "../services/jokeService.js";
 import { getReports } from "../services/jokeService.js";
+
 export function renderReportHistory() {
     const historyEl = document.getElementById("reportHistory")!;
     const reports = getReports();
+
     historyEl.innerHTML = "";
+
     if (reports.length === 0) {
         historyEl.innerHTML = `<li class="list-group-item">No jokes rated yet.</li>`;
         return;
     }
+
     reports.forEach((report: { joke: string; score: number; source: "dad" | "chuck"; }) => {
         const sourceLabel = report.source === "dad" ? "Dad Joke" : "Chuck Norris";
-        historyEl.innerHTML += `<li class="list-group-item">
-            <strong>${sourceLabel}:</strong> ${report.joke}<br>
-            <strong>Score:</strong> ${report.score}
-        </li>`;
+        historyEl.innerHTML +=
+            `<li class="list-group-item">
+                <strong>${sourceLabel}:</strong> ${report.joke}<br>
+                <strong>Score:</strong> ${report.score}
+            </li>`;
     });
 }
 

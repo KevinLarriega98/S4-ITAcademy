@@ -1,4 +1,5 @@
 import { displayJoke } from "../ui/uiService.js";
+import { DAD_JOKE_API, CHUCK_NORRIS_API } from "../config/config.js";
 
 export interface Joke {
     id: string;
@@ -16,13 +17,16 @@ export interface ReportJoke {
 const reportJokes: ReportJoke[] = [];
 
 async function fetchDadJoke(): Promise<Joke> {
-    const response = await fetch("https://icanhazdadjoke.com/", {
+    const response = await fetch(DAD_JOKE_API, {
         headers: {
             Accept: "application/json",
         },
     });
+
     if (!response.ok) throw new Error("Error fetching dad joke");
+
     const data = await response.json();
+
     return {
         id: data.id,
         joke: data.joke,
@@ -31,9 +35,12 @@ async function fetchDadJoke(): Promise<Joke> {
 }
 
 async function fetchChuckJoke(): Promise<Joke> {
-    const response = await fetch("https://api.chucknorris.io/jokes/random");
+    const response = await fetch(CHUCK_NORRIS_API);
+
     if (!response.ok) throw new Error("Error fetching chuck norris joke");
+
     const data = await response.json();
+
     return {
         id: data.id,
         joke: data.value,
@@ -61,6 +68,7 @@ export async function loadJoke() {
 
 export function addReport(joke: string, score: number, source: "dad" | "chuck" = "dad") {
     const existingIndex = reportJokes.findIndex(r => r.joke === joke);
+
     if (existingIndex !== -1) {
         reportJokes[existingIndex].score = score;
         reportJokes[existingIndex].date = new Date().toISOString();
@@ -68,6 +76,7 @@ export function addReport(joke: string, score: number, source: "dad" | "chuck" =
     } else {
         reportJokes.push({ joke, score, date: new Date().toISOString(), source });
     }
+
     console.log(reportJokes);
 }
 

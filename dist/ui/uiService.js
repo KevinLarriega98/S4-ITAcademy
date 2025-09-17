@@ -10,10 +10,11 @@ export function renderReportHistory() {
     }
     reports.forEach((report) => {
         const sourceLabel = report.source === "dad" ? "Dad Joke" : "Chuck Norris";
-        historyEl.innerHTML += `<li class="list-group-item">
-            <strong>${sourceLabel}:</strong> ${report.joke}<br>
-            <strong>Score:</strong> ${report.score}
-        </li>`;
+        historyEl.innerHTML +=
+            `<li class="list-group-item">
+                <strong>${sourceLabel}:</strong> ${report.joke}<br>
+                <strong>Score:</strong> ${report.score}
+            </li>`;
     });
 }
 const jokeEl = document.getElementById("joke");
