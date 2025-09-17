@@ -1,4 +1,4 @@
-import { addReport } from "./reportService.js";
+import { addReport } from "../services/jokeService.js";
 
 const jokeEl = document.getElementById("joke")!;
 const scoreButtons = [1, 2, 3].map((n) => document.getElementById(`score${n}`)!);
