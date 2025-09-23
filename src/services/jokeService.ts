@@ -17,34 +17,25 @@ export interface ReportJoke {
 
 const reportJokes: ReportJoke[] = [];
 
-async function fetchDadJoke(): Promise<Joke> {
-    const data = await fetchApi<{ id: string; joke: string }>(DAD_JOKE_API, {
-        headers: {
-            Accept: "application/json",
-        },
-    });
-    return {
-        id: data.id,
-        joke: data.joke,
-        source: "dad"
-    };
-}
+function dataParser(data: any, source: "dad" | "chuck"): Joke {
+    const jokeText = source === "dad" ? data.joke : data.value;
 
-async function fetchChuckJoke(): Promise<Joke> {
-    const data = await fetchApi<{ id: string; value: string }>(CHUCK_NORRIS_API);
     return {
         id: data.id,
-        joke: data.value,
-        source: "chuck"
+        joke: jokeText,
+        source
     };
 }
 
 export async function fetchJoke(): Promise<Joke> {
-    if (Math.random() < 0.5) {
-        return fetchDadJoke();
-    } else {
-        return fetchChuckJoke();
-    }
+    const isDad = Math.random() < 0.5;
+
+    const data = await fetchApi<any>(
+        isDad ? DAD_JOKE_API.url : CHUCK_NORRIS_API.url,
+        isDad ? DAD_JOKE_API.options : undefined
+    );
+
+    return dataParser(data, isDad ? "dad" : "chuck");
 }
 
 export async function loadJoke() {

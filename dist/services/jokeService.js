@@ -11,38 +11,19 @@ import { displayJoke } from "../ui/uiService.js";
 import { DAD_JOKE_API, CHUCK_NORRIS_API } from "../config/config.js";
 import { fetchApi } from "./apiService.js";
 const reportJokes = [];
-function fetchDadJoke() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const data = yield fetchApi(DAD_JOKE_API, {
-            headers: {
-                Accept: "application/json",
-            },
-        });
-        return {
-            id: data.id,
-            joke: data.joke,
-            source: "dad"
-        };
-    });
-}
-function fetchChuckJoke() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const data = yield fetchApi(CHUCK_NORRIS_API);
-        return {
-            id: data.id,
-            joke: data.value,
-            source: "chuck"
-        };
-    });
+function dataParser(data, source) {
+    const jokeText = source === "dad" ? data.joke : data.value;
+    return {
+        id: data.id,
+        joke: jokeText,
+        source
+    };
 }
 export function fetchJoke() {
     return __awaiter(this, void 0, void 0, function* () {
-        if (Math.random() < 0.5) {
-            return fetchDadJoke();
-        }
-        else {
-            return fetchChuckJoke();
-        }
+        const isDad = Math.random() < 0.5;
+        const data = yield fetchApi(isDad ? DAD_JOKE_API.url : CHUCK_NORRIS_API.url, isDad ? DAD_JOKE_API.options : undefined);
+        return dataParser(data, isDad ? "dad" : "chuck");
     });
 }
 export function loadJoke() {

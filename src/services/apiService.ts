@@ -1,7 +1,14 @@
 export async function fetchApi<T>(url: string, options?: RequestInit): Promise<T> {
-    const response = await fetch(url, options);
+    try {
+        const response = await fetch(url, options);
 
-    if (!response.ok) throw new Error("API error");
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status} ${response.statusText}`);
+        }
 
-    return response.json();
+        return response.json();
+    } catch (error) {
+        console.error("Error fetching API:", error);
+        throw error;
+    }
 }

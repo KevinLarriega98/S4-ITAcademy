@@ -1,0 +1,27 @@
+#reportHistory {
+    max-height: 306px;
+}
+
+@media (min-width: 576px) {
+    #reportHistory {
+        max-height: 309px;
+    }
+}
+
+@media (min-width: 768px) {
+    #reportHistory {
+        max-height: 313px;
+    }
+}
+
+@media (min-width: 992px) {
+    #reportHistory {
+        max-height: 318px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #reportHistory {
+        max-height: 323px;
+    }
+}

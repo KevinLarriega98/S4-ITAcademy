@@ -26,19 +26,37 @@ function mapWeatherCodeToIcon(code) {
         return "⛈️";
     return "❓";
 }
+export function getLocation() {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!navigator.geolocation) {
+            throw new Error("Geolocation not supported");
+        }
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition((position) => resolve({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            }), (error) => reject(error));
+        });
+    });
+}
 export function getWeather() {
     return __awaiter(this, void 0, void 0, function* () {
-        const latitude = 41.3851;
-        const longitude = 2.1734;
-        const url = `${WEATHER_API}?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
-        const data = yield fetchApi(url);
-        const { temperature, weathercode } = data.current_weather;
-        const degrees = data.current_weather_units.temperature;
-        return {
-            temperature,
-            unit: degrees,
-            icon: mapWeatherCodeToIcon(weathercode),
-        };
+        try {
+            const { latitude, longitude } = yield getLocation();
+            const url = `${WEATHER_API.url}?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+            const data = yield fetchApi(url);
+            const { temperature, weathercode } = data.current_weather;
+            const degrees = data.current_weather_units.temperature;
+            return {
+                temperature,
+                unit: degrees,
+                icon: mapWeatherCodeToIcon(weathercode),
+            };
+        }
+        catch (error) {
+            console.error("Error fetching weather:", error);
+            throw error;
+        }
     });
 }
 export function loadWeather() {
@@ -48,8 +66,7 @@ export function loadWeather() {
             const weather = yield getWeather();
             weatherEl.textContent = `${weather.icon} | ${weather.temperature} ${weather.unit}`;
         }
-        catch (error) {
-            console.log(error);
+        catch (_a) {
             weatherEl.textContent = "Error loading weather";
         }
     });

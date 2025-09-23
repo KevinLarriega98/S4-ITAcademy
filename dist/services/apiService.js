@@ -9,9 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 export function fetchApi(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield fetch(url, options);
-        if (!response.ok)
-            throw new Error("API error");
-        return response.json();
+        try {
+            const response = yield fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        }
+        catch (error) {
+            console.error("Error fetching API:", error);
+            throw error;
+        }
     });
 }

@@ -8,14 +8,15 @@ export function renderReportHistory() {
         historyEl.innerHTML = `<li class="list-group-item">No jokes rated yet.</li>`;
         return;
     }
-    reports.forEach((report) => {
+    historyEl.innerHTML = reports.map((report) => {
         const sourceLabel = report.source === "dad" ? "Dad Joke" : "Chuck Norris";
-        historyEl.innerHTML +=
-            `<li class="list-group-item">
+        return `
+            <li class="list-group-item">
                 <strong>${sourceLabel}:</strong> ${report.joke}<br>
                 <strong>Score:</strong> ${report.score}
-            </li>`;
-    });
+            </li>
+        `;
+    }).join("");
 }
 const jokeEl = document.getElementById("joke");
 const jokeSourceEl = document.getElementById("jokeSource");

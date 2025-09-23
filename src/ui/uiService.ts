@@ -12,14 +12,15 @@ export function renderReportHistory() {
         return;
     }
 
-    reports.forEach((report: { joke: string; score: number; source: "dad" | "chuck"; }) => {
+    historyEl.innerHTML = reports.map((report) => {
         const sourceLabel = report.source === "dad" ? "Dad Joke" : "Chuck Norris";
-        historyEl.innerHTML +=
-            `<li class="list-group-item">
+        return `
+            <li class="list-group-item">
                 <strong>${sourceLabel}:</strong> ${report.joke}<br>
                 <strong>Score:</strong> ${report.score}
-            </li>`;
-    });
+            </li>
+        `;
+    }).join("");
 }
 
 const jokeEl = document.getElementById("joke")!;
@@ -30,6 +31,7 @@ let lastJokeSource: "dad" | "chuck" = "dad";
 
 export function displayJoke(joke: string, source?: "dad" | "chuck") {
     jokeEl.textContent = joke;
+
     if (source) {
         jokeSourceEl.textContent = source === "dad" ? "Dad Joke" : "Chuck Norris";
         lastJokeSource = source;
