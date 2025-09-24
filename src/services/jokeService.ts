@@ -1,6 +1,6 @@
-import { displayJoke } from "../ui/uiService.js";
-import { DAD_JOKE_API, CHUCK_NORRIS_API } from "../config/config.js";
-import { fetchApi } from "./apiService.js";
+import { displayJoke } from "../ui/uiService";
+import { DAD_JOKE_API, CHUCK_NORRIS_API } from "../config/config";
+import { fetchApi } from "./apiService";
 
 export interface Joke {
     id: string;

@@ -1,5 +1,5 @@
-import { addReport } from "../services/jokeService.js";
-import { getReports } from "../services/jokeService.js";
+import { addReport } from "../services/jokeService";
+import { getReports } from "../services/jokeService";
 
 export function renderReportHistory() {
     const historyEl = document.getElementById("reportHistory")!;

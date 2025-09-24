@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { fetchApi } from "./apiService.js";
-import { WEATHER_API } from "../config/config.js";
+import { fetchApi } from "./apiService";
+import { WEATHER_API } from "../config/config";
 function mapWeatherCodeToIcon(code) {
     if (code === 0)
         return "☀️";

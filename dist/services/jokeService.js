@@ -7,9 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { displayJoke } from "../ui/uiService.js";
-import { DAD_JOKE_API, CHUCK_NORRIS_API } from "../config/config.js";
-import { fetchApi } from "./apiService.js";
+import { displayJoke } from "../ui/uiService";
+import { DAD_JOKE_API, CHUCK_NORRIS_API } from "../config/config";
+import { fetchApi } from "./apiService";
 const reportJokes = [];
 function dataParser(data, source) {
     const jokeText = source === "dad" ? data.joke : data.value;
