@@ -84,6 +84,10 @@ This will generate the `/dist` folder with the compiled `.js` files.
 
 ### Running Tests
 
+> ⚠️ **Important:** To run the tests successfully, you need to temporarily remove the `.js` extensions 
+> from the imports in the following files: `main.ts`, `weatherService.ts`, `uiService.ts`, and `jokeService.ts`. 
+> This is because Jest works with TypeScript imports directly.
+
 ```bash
 npm test
 ```

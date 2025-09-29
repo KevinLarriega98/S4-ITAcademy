@@ -1,5 +1,5 @@
-import { fetchApi } from "./apiService";
-import { WEATHER_API } from "../config/config";
+import { fetchApi } from "./apiService.js";
+import { WEATHER_API } from "../config/config.js";
 
 export interface Weather {
     temperature: number;
